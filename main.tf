@@ -1,4 +1,4 @@
-resource "azuread_user" "main" {
+resource "azuread_user" "this" {
   for_each = {
     for key, user in var.users : key => user
   }
@@ -20,7 +20,7 @@ resource "azuread_user" "main" {
   employee_id                 = each.value.employee_id
   employee_type               = each.value.employee_type
   fax_number                  = each.value.fax_number
-  force_password_change       = each.value.force_password_change
+  force_password_change       = coalesce(each.value.force_password_change, true)
   given_name                  = each.value.given_name
   job_title                   = each.value.job_title
   mail                        = each.value.mail
@@ -30,7 +30,7 @@ resource "azuread_user" "main" {
   office_location             = each.value.office_location
   onpremises_immutable_id     = each.value.onpremises_immutable_id
   other_mails                 = each.value.other_mails
-  password                    = try(coalesce(each.value.password, random_password.user[each.key].result), null)
+  password                    = try(coalesce(each.value.password, random_password.this[each.key].result), null)
   postal_code                 = each.value.postal_code
   preferred_language          = each.value.preferred_language
   show_in_address_list        = each.value.show_in_address_list
@@ -41,7 +41,7 @@ resource "azuread_user" "main" {
   user_principal_name         = each.value.user_principal_name
 }
 
-resource "random_password" "user" {
+resource "random_password" "this" {
   for_each = {
     for key, user in var.users : key => user if user.password == null && var.generate_password == true
   }
@@ -59,7 +59,7 @@ resource "random_password" "user" {
   numeric          = var.random_password.numeric
 }
 
-resource "azurerm_key_vault_secret" "main" {
+resource "azurerm_key_vault_secret" "this" {
   for_each = {
     for key, user in var.users : key => user if user.password == null && var.generate_password == true
   }
@@ -70,7 +70,7 @@ resource "azurerm_key_vault_secret" "main" {
     "kvs-password-${replace(replace(each.value.display_name, " ", "-"), "_", "-")}"
   )
 
-  value           = random_password.user[each.key].result
+  value           = random_password.this[each.key].result
   key_vault_id    = var.key_vault_id
   tags            = var.key_vault_secret.tags
   content_type    = var.key_vault_secret.content_type

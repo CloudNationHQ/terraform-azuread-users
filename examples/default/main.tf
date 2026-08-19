@@ -1,13 +1,17 @@
+data "azuread_domains" "this" {
+  only_initial = true
+}
+
 module "naming" {
   source  = "cloudnationhq/naming/azure"
-  version = "~> 0.1"
+  version = "~> 0.25"
 
   suffix = ["demo", "dev"]
 }
 
 module "rg" {
   source  = "cloudnationhq/rg/azure"
-  version = "~> 2.0"
+  version = "~> 3.0"
 
   groups = {
     demo = {
@@ -19,7 +23,7 @@ module "rg" {
 
 module "kv" {
   source  = "cloudnationhq/kv/azure"
-  version = "~> 4.0"
+  version = "~> 6.0"
 
   vault = {
     name                = module.naming.key_vault.name_unique
@@ -30,7 +34,7 @@ module "kv" {
 
 module "users" {
   source  = "cloudnationhq/users/azuread"
-  version = "~> 1.0"
+  version = "~> 2.0"
 
   key_vault_id = module.kv.vault.id
 
@@ -39,7 +43,7 @@ module "users" {
       display_name        = "John Doe"
       given_name          = "John"
       surname             = "Doe"
-      user_principal_name = "johndoe@cloudnationdev.com"
+      user_principal_name = "john.doe@${data.azuread_domains.this.domains[0].domain_name}"
       city                = "London"
       country             = "GB"
       department          = "Marketing"
@@ -51,7 +55,7 @@ module "users" {
       display_name          = "Jane Smith"
       given_name            = "Jane"
       surname               = "Smith"
-      user_principal_name   = "janesmith@cloudnationdev.com"
+      user_principal_name   = "jane.smith@${data.azuread_domains.this.domains[0].domain_name}"
       city                  = "Amsterdam"
       country               = "NL"
       department            = "Engineering"
@@ -67,7 +71,7 @@ module "users" {
 
 module "managers" {
   source  = "cloudnationhq/users/azuread"
-  version = "~> 1.0"
+  version = "~> 2.0"
 
   key_vault_id = module.kv.vault.id
 
@@ -77,7 +81,7 @@ module "managers" {
       given_name            = "Alice"
       key_vault_secret_name = "alice-johnson-password"
       surname               = "Johnson"
-      user_principal_name   = "alicejohnson@cloudnationdev.com"
+      user_principal_name   = "alice.johnson@${data.azuread_domains.this.domains[0].domain_name}"
       city                  = "Berlin"
       country               = "DE"
       department            = "Sales"

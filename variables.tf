@@ -1,7 +1,7 @@
 variable "users" {
   description = "describes users related configuration"
   type = map(object({
-    account_enabled             = optional(bool, true)
+    account_enabled             = optional(bool)
     age_group                   = optional(string) # allowed values are "Adult", "NotAdult", "Minor"
     business_phones             = optional(list(string))
     company_name                = optional(string)
@@ -18,7 +18,7 @@ variable "users" {
     employee_id                 = optional(string)
     employee_type               = optional(string)
     fax_number                  = optional(string)
-    force_password_change       = optional(bool, true)
+    force_password_change       = optional(bool)
     given_name                  = optional(string)
     job_title                   = optional(string)
     key_vault_secret_name       = optional(string)

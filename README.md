@@ -19,7 +19,7 @@ The following requirements are needed by this module:
 
 - <a name="requirement_azuread"></a> [azuread](#requirement\_azuread) (~> 3.0)
 
-- <a name="requirement_azurerm"></a> [azurerm](#requirement\_azurerm) (~> 4.0)
+- <a name="requirement_azurerm"></a> [azurerm](#requirement\_azurerm) (~> 5.0)
 
 - <a name="requirement_random"></a> [random](#requirement\_random) (~> 3.7)
 
@@ -27,19 +27,19 @@ The following requirements are needed by this module:
 
 The following providers are used by this module:
 
-- <a name="provider_azuread"></a> [azuread](#provider\_azuread) (3.5.0)
+- <a name="provider_azuread"></a> [azuread](#provider\_azuread) (~> 3.0)
 
-- <a name="provider_azurerm"></a> [azurerm](#provider\_azurerm) (4.39.0)
+- <a name="provider_azurerm"></a> [azurerm](#provider\_azurerm) (~> 5.0)
 
-- <a name="provider_random"></a> [random](#provider\_random) (3.7.2)
+- <a name="provider_random"></a> [random](#provider\_random) (~> 3.7)
 
 ## Resources
 
 The following resources are used by this module:
 
-- [azuread_user.main](https://registry.terraform.io/providers/hashicorp/azuread/latest/docs/resources/user) (resource)
-- [azurerm_key_vault_secret.main](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/key_vault_secret) (resource)
-- [random_password.user](https://registry.terraform.io/providers/hashicorp/random/latest/docs/resources/password) (resource)
+- [azuread_user.this](https://registry.terraform.io/providers/hashicorp/azuread/latest/docs/resources/user) (resource)
+- [azurerm_key_vault_secret.this](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/key_vault_secret) (resource)
+- [random_password.this](https://registry.terraform.io/providers/hashicorp/random/latest/docs/resources/password) (resource)
 
 ## Required Inputs
 
@@ -53,7 +53,7 @@ Type:
 
 ```hcl
 map(object({
-    account_enabled             = optional(bool, true)
+    account_enabled             = optional(bool)
     age_group                   = optional(string) # allowed values are "Adult", "NotAdult", "Minor"
     business_phones             = optional(list(string))
     company_name                = optional(string)
@@ -70,7 +70,7 @@ map(object({
     employee_id                 = optional(string)
     employee_type               = optional(string)
     fax_number                  = optional(string)
-    force_password_change       = optional(bool, true)
+    force_password_change       = optional(bool)
     given_name                  = optional(string)
     job_title                   = optional(string)
     key_vault_secret_name       = optional(string)
