@@ -61,7 +61,7 @@ resource "random_password" "this" {
 
 resource "azurerm_key_vault_secret" "this" {
   for_each = {
-    for key, user in var.users : key => user if user.password == null && var.generate_password == true
+    for key, user in var.users : key => user if user.password == null && var.generate_password == true && var.key_vault_id != null
   }
 
   name = coalesce(

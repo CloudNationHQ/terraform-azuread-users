@@ -51,16 +51,11 @@ variable "key_vault_id" {
   description = "ID of the Key Vault where the password secrets for the user accounts will be stored"
   type        = string
   default     = null
-  validation {
-    condition     = var.generate_password == false || var.key_vault_id != null
-    error_message = "key_vault_id must be provided when generate_password is set to true."
-  }
 }
 
 variable "generate_password" {
   description = "Flag to indicate whether to generate a random password"
   type        = bool
-  default     = true
 }
 
 variable "key_vault_secret" {

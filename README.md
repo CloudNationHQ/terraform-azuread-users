@@ -45,6 +45,12 @@ The following resources are used by this module:
 
 The following input variables are required:
 
+### <a name="input_generate_password"></a> [generate\_password](#input\_generate\_password)
+
+Description: Flag to indicate whether to generate a random password
+
+Type: `bool`
+
 ### <a name="input_users"></a> [users](#input\_users)
 
 Description: describes users related configuration
@@ -100,14 +106,6 @@ The following input variables are optional (have default values):
 ### <a name="input_account_enabled"></a> [account\_enabled](#input\_account\_enabled)
 
 Description: default global flag whether user accounts should enabled or not
-
-Type: `bool`
-
-Default: `true`
-
-### <a name="input_generate_password"></a> [generate\_password](#input\_generate\_password)
-
-Description: Flag to indicate whether to generate a random password
 
 Type: `bool`
 
