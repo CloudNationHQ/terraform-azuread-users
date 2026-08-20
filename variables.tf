@@ -47,6 +47,12 @@ variable "account_enabled" {
   default     = true
 }
 
+variable "force_password_change" {
+  description = "default global flag whether users must change their password on next login"
+  type        = bool
+  default     = true
+}
+
 variable "key_vault_id" {
   description = "ID of the Key Vault where the password secrets for the user accounts will be stored"
   type        = string

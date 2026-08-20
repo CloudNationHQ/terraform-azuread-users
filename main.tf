@@ -20,7 +20,7 @@ resource "azuread_user" "this" {
   employee_id                 = each.value.employee_id
   employee_type               = each.value.employee_type
   fax_number                  = each.value.fax_number
-  force_password_change       = coalesce(each.value.force_password_change, true)
+  force_password_change       = coalesce(each.value.force_password_change, var.force_password_change)
   given_name                  = each.value.given_name
   job_title                   = each.value.job_title
   mail                        = each.value.mail
