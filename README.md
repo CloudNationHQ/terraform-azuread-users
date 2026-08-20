@@ -111,6 +111,14 @@ Type: `bool`
 
 Default: `true`
 
+### <a name="input_force_password_change"></a> [force\_password\_change](#input\_force\_password\_change)
+
+Description: default global flag whether users must change their password on next login
+
+Type: `bool`
+
+Default: `true`
+
 ### <a name="input_key_vault_id"></a> [key\_vault\_id](#input\_key\_vault\_id)
 
 Description: ID of the Key Vault where the password secrets for the user accounts will be stored
