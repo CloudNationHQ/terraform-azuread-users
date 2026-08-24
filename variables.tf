@@ -1,7 +1,7 @@
 variable "users" {
   description = "describes users related configuration"
   type = map(object({
-    account_enabled             = optional(bool, true)
+    account_enabled             = optional(bool)
     age_group                   = optional(string) # allowed values are "Adult", "NotAdult", "Minor"
     business_phones             = optional(list(string))
     company_name                = optional(string)
@@ -18,10 +18,9 @@ variable "users" {
     employee_id                 = optional(string)
     employee_type               = optional(string)
     fax_number                  = optional(string)
-    force_password_change       = optional(bool, true)
+    force_password_change       = optional(bool)
     given_name                  = optional(string)
     job_title                   = optional(string)
-    key_vault_secret_name       = optional(string)
     mail                        = optional(string)
     mail_nickname               = optional(string)
     manager_id                  = optional(string)
@@ -47,31 +46,15 @@ variable "account_enabled" {
   default     = true
 }
 
-variable "key_vault_id" {
-  description = "ID of the Key Vault where the password secrets for the user accounts will be stored"
-  type        = string
-  default     = null
-  validation {
-    condition     = var.generate_password == false || var.key_vault_id != null
-    error_message = "key_vault_id must be provided when generate_password is set to true."
-  }
+variable "force_password_change" {
+  description = "default global flag whether users must change their password on next login"
+  type        = bool
+  default     = true
 }
 
 variable "generate_password" {
   description = "Flag to indicate whether to generate a random password"
   type        = bool
-  default     = true
-}
-
-variable "key_vault_secret" {
-  description = "Properties of the Key Vault secret where the user passwords will be stored"
-  type = object({
-    content_type    = optional(string)
-    expiration_date = optional(string)
-    not_before_date = optional(string)
-    tags            = optional(map(string))
-  })
-  default = {}
 }
 
 variable "random_password" {
@@ -92,10 +75,3 @@ variable "random_password" {
   default = {}
 }
 
-variable "naming" {
-  description = "contains naming convention"
-  type = object({
-    key_vault_secret = optional(string)
-  })
-  default = {}
-}
