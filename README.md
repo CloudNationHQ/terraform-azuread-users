@@ -19,8 +19,6 @@ The following requirements are needed by this module:
 
 - <a name="requirement_azuread"></a> [azuread](#requirement\_azuread) (~> 3.0)
 
-- <a name="requirement_azurerm"></a> [azurerm](#requirement\_azurerm) (~> 5.0)
-
 - <a name="requirement_random"></a> [random](#requirement\_random) (~> 3.7)
 
 ## Providers
@@ -29,8 +27,6 @@ The following providers are used by this module:
 
 - <a name="provider_azuread"></a> [azuread](#provider\_azuread) (~> 3.0)
 
-- <a name="provider_azurerm"></a> [azurerm](#provider\_azurerm) (~> 5.0)
-
 - <a name="provider_random"></a> [random](#provider\_random) (~> 3.7)
 
 ## Resources
@@ -38,7 +34,6 @@ The following providers are used by this module:
 The following resources are used by this module:
 
 - [azuread_user.this](https://registry.terraform.io/providers/hashicorp/azuread/latest/docs/resources/user) (resource)
-- [azurerm_key_vault_secret.this](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/key_vault_secret) (resource)
 - [random_password.this](https://registry.terraform.io/providers/hashicorp/random/latest/docs/resources/password) (resource)
 
 ## Required Inputs
@@ -79,7 +74,6 @@ map(object({
     force_password_change       = optional(bool)
     given_name                  = optional(string)
     job_title                   = optional(string)
-    key_vault_secret_name       = optional(string)
     mail                        = optional(string)
     mail_nickname               = optional(string)
     manager_id                  = optional(string)
@@ -118,45 +112,6 @@ Description: default global flag whether users must change their password on nex
 Type: `bool`
 
 Default: `true`
-
-### <a name="input_key_vault_id"></a> [key\_vault\_id](#input\_key\_vault\_id)
-
-Description: ID of the Key Vault where the password secrets for the user accounts will be stored
-
-Type: `string`
-
-Default: `null`
-
-### <a name="input_key_vault_secret"></a> [key\_vault\_secret](#input\_key\_vault\_secret)
-
-Description: Properties of the Key Vault secret where the user passwords will be stored
-
-Type:
-
-```hcl
-object({
-    content_type    = optional(string)
-    expiration_date = optional(string)
-    not_before_date = optional(string)
-    tags            = optional(map(string))
-  })
-```
-
-Default: `{}`
-
-### <a name="input_naming"></a> [naming](#input\_naming)
-
-Description: contains naming convention
-
-Type:
-
-```hcl
-object({
-    key_vault_secret = optional(string)
-  })
-```
-
-Default: `{}`
 
 ### <a name="input_random_password"></a> [random\_password](#input\_random\_password)
 

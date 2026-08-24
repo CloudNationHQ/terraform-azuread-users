@@ -58,22 +58,3 @@ resource "random_password" "this" {
   lower            = var.random_password.lower
   numeric          = var.random_password.numeric
 }
-
-resource "azurerm_key_vault_secret" "this" {
-  for_each = {
-    for key, user in var.users : key => user if user.password == null && var.generate_password == true && var.key_vault_id != null
-  }
-
-  name = coalesce(
-    each.value.key_vault_secret_name,
-    try("${var.naming.key_vault_secret}-${replace(replace(each.value.display_name, " ", "-"), "_", "-")}", null),
-    "kvs-password-${replace(replace(each.value.display_name, " ", "-"), "_", "-")}"
-  )
-
-  value           = random_password.this[each.key].result
-  key_vault_id    = var.key_vault_id
-  tags            = var.key_vault_secret.tags
-  content_type    = var.key_vault_secret.content_type
-  expiration_date = var.key_vault_secret.expiration_date
-  not_before_date = var.key_vault_secret.not_before_date
-}
