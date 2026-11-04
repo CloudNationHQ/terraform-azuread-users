@@ -166,7 +166,7 @@ https://github.com/hashicorp/terraform-provider-azuread/issues/1586
 
 Full examples detailing all usages, along with integrations with dependency modules, are located in the examples directory.
 
-To update the module's documentation run `make doc`
+To update the module's documentation run `make docs`
 
 ## Authors
 
